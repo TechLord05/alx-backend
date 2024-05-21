@@ -1,33 +1,30 @@
-#!/usr/bin/env python3
-""" BasicCache module
+#!/usr/bin/python3
+""" LIFOCache module
 """
+
 from base_caching import BaseCaching
 
 class LIFOCache(BaseCaching):
-    """ LIFOCache defines:
-      - Caching system inherit from BaseCaching
-    """
-
+    """ LIFOCache defines a caching system with LIFO eviction policy """
+    
     def __init__(self):
-        """ Initiliaze
-        """
+        """ Initialize the cache """
         super().__init__()
-        self.cacheList = []
+        self.last_key = None
 
     def put(self, key, item):
-        """ Add an item in the cache
-        """
-        if key and item:
-            if key in self.cache_data:
-                self.cacheList.remove(key)
-            elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                discard = self.cacheList.pop()
-                print("DISCARD: {}".format(discard))
-                del self.cache_data[discard]
-            self.cacheList.append(key)
-            self.cache_data[key] = item
+        """ Add an item in the cache """
+        if key is None or item is None:
+            return
+        
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            if self.last_key is not None:
+                print(f"DISCARD: {self.last_key}")
+                del self.cache_data[self.last_key]
+        
+        self.cache_data[key] = item
+        self.last_key = key
 
     def get(self, key):
-        """ Get an item by key
-        """
+        """ Get an item by key """
         return self.cache_data.get(key, None)
