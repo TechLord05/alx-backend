@@ -3,6 +3,7 @@
 
 from base_caching import BaseCaching
 
+
 class FIFOCache(BaseCaching):
     """FIFOCache class
 

@@ -3,9 +3,10 @@
 
 from base_caching import BaseCaching
 
+
 class LRUCache(BaseCaching):
     """LRUcache class
-    
+
     Args: BaseCaching module
     """
     def __init__(self):
@@ -29,7 +30,7 @@ class LRUCache(BaseCaching):
                 lru_key = self.order.pop(0)
                 print(f"DISCARD: {lru_key}")
                 del self.cache_data[lru_key]
-        
+
             self.cache_data[key] = item
             self.order.append(key)
 

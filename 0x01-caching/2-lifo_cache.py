@@ -4,9 +4,10 @@
 
 from base_caching import BaseCaching
 
+
 class LIFOCache(BaseCaching):
     """ LIFOCache defines a caching system with LIFO eviction policy """
-    
+
     def __init__(self):
         """ Initialize the cache """
         super().__init__()
@@ -16,12 +17,12 @@ class LIFOCache(BaseCaching):
         """ Add an item in the cache """
         if key is None or item is None:
             return
-        
+
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             if self.last_key is not None:
                 print(f"DISCARD: {self.last_key}")
                 del self.cache_data[self.last_key]
-        
+
         self.cache_data[key] = item
         self.last_key = key
 
